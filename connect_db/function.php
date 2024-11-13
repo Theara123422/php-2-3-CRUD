@@ -47,7 +47,7 @@
                     <td>'.$row['price'].'</td>
                     <td>'.$row['created_at'].'</td>
                     <td>
-                        <button name="btn_edit" class="btn btn-outline-warning">Edit</button>
+                        <button name="btn_edit" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn_edit">Edit</button>
                         <button id="btn_del" name="btn_remove" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove</button>
                     </td>
                 </tr>
@@ -92,4 +92,49 @@
         }
     }
     remove_product();
-    
+    function edit_product(){
+        global $connection;
+
+        if(isset($_POST['btn_confirm_edit'])){
+            $id       = $_POST['edited_id'];
+            $name     = $_POST['edited_name'];
+            $category = $_POST['edited_category'];
+            $qty      = $_POST['edited_qty'];
+            $price    = $_POST['edited_price'];
+            if(!empty($name) && !empty($category) && !empty('qty') && !empty($price)){
+                $sql_edit = "UPDATE tbl_product SET `name`='$name',`category`='$category',`qty`='$qty',`price`='$price' WHERE `id`='$id'";
+
+                $result   = $connection -> query($sql_edit);
+
+
+                if($result){
+                    echo '
+                            <script>
+                                $(document).ready(function(){
+                                    swal({
+                                        title: "Success Edit Product",
+                                        text: "You Edited product",
+                                        icon: "success",
+                                    });
+                                })
+                            </script>
+                        ';
+                }
+                else{
+                    echo '
+                                <script>
+                                    $(document).ready(function(){
+                                        swal({
+                                            title: "Failed Edited Product",
+                                            text: "You failed Edited product",
+                                            icon: "error",
+                                        });
+                                    })
+                                </script>
+                            ';
+                }
+            }
+
+        }
+    }
+    edit_product();

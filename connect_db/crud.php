@@ -1,5 +1,5 @@
 <?php
-    include 'function.php';
+include 'function.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,16 +71,61 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <input type="text" name="edited_id" id="id">
+                        <label for="name">Name : </label>
+                        <input type="text" name="edited_name" id="name" class="form-control my-2 border border-2">
+                        <label for="category">Category : </label>
+                        <select name="edited_category" id="category" class="form-select my-2 border border-2">
+                            <option value="drink">Drink</option>
+                            <option value="snack">Snacks</option>
+                            <option value="desserts">Dessert</option>
+                        </select>
+                        <label for="price">Price : </label>
+                        <input type="text" name="edited_price" id="price" class="form-control my-2 border border-2">
+                        <label for="qty">Quantity : </label>
+                        <input type="number" name="edited_qty" id="qty" class="form-control my-2 border border-2">
+                        <input type="reset" value="Cancel" class="btn btn-danger mt-2">
+                        <input type="submit" value="Confirm Edit" class="btn btn-success mt-2" name="btn_confirm_edit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
 <script>
-    $(document).ready(function(){
-        $('body').on('click','#btn_del',function(){
+    $(document).ready(function() {
+        $('body').on('click', '#btn_del', function() {
             var id = $(this).parents('tr').find('td').eq(0).text();
             $('#hidden_id').val(id);
-        })
-    })
+        });
+
+        $('body').on('click','#btn_edit',function(){
+            var id       = $(this).parents('tr').find('td').eq(0).text();
+            var name     = $(this).parents('tr').find('td').eq(1).text();
+            var category = $(this).parents('tr').find('td').eq(2).text();
+            var qty      = $(this).parents('tr').find('td').eq(3).text();
+            var price    = $(this).parents('tr').find('td').eq(4).text();
+            
+            $('#id').val(id);
+            $('#name').val(name);
+            $('#category').val(category);
+            $('#qty').val(qty);
+            $('#price').val(price);
+        }) 
+    });
 </script>
 
 
